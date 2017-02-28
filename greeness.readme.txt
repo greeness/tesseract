@@ -1,7 +1,15 @@
 How to compile in Ubuntu?
 
+(below steps were tested under Ubuntu 14.04)
+
 * Basically Following https://github.com/tesseract-ocr/tesseract/wiki/Compiling
   to install dependencies.
+
+* Install additional libs required by the training tools. 
+  https://github.com/tesseract-ocr/tesseract/wiki/TrainingTesseract-4.00#additional-libraries-required
+sudo apt-get install libicu-dev
+sudo apt-get install libpango1.0-dev
+sudo apt-get install libcairo2-dev
 
 * Do install "Leptonica" from the source. (get it here: http://www.leptonica.org/download.html)
   untar and then "./configure && make install".
@@ -18,12 +26,22 @@ sudo ldconfig
 
 How to convert a wordlist to dawg file?
 
-* Get a wordlist file (one word per line) -- say it is named "/tmp/wordlist.txt". looks like below\
+* Build the training tools
+  https://github.com/tesseract-ocr/tesseract/wiki/TrainingTesseract-4.00#building-the-training-tools
+
+  "make training"
+  After this step, you should see that there is a binary generated under tesseract/training/wordlist2dawg.
+  
+
+* Get a wordlist file (one word per line) -- say it is named "/tmp/wordlist.txt". looks like below:
+## wordlist file begins at the next line.
 long
 longer
 longest
+## wordlist file ends at the previous line.
 
 * Prepare a charset file (one allowed lower-case character plus 3 per line, looks like below for English).
+  Note: 3 means it is an alphabet (not a number or something else) and it is in lower-case.
   with the first line has the number of total characters allowed.
 ## Charset file begins at the next line. -- saved as "/tmp/charset.txt"
 26
@@ -39,7 +57,7 @@ i 3
 j 3
 k 3
 l 3
-m 3
+m 3`
 n 3
 o 3
 p 3
@@ -55,6 +73,21 @@ y 3
 z 3
 # Charset file ends at the previous line.
 
-* Run the binary wordlist2dawg to produce dawg file.
-wordlist2dawg /tmp/wordlist.txt /tmp/dawg.bin /tmp/charset.txt
+* Run the binary wordlist2dawg to produce dawg file for the small wordlist above.
+training/wordlist2dawg /tmp/wordlist.txt /tmp/dawg.bin /tmp/charset.txt
+
+To verify its correctness, you can perform a reverse transformation:
+training/dawg2wordlist /tmp/charset.txt /tmp/dawg.bin /tmp/recovered.wordlist.txt
+
+The "recovered.wordlist.txt" should contain the same set of words but could be in different order.
+
+* Run the binary for the full dictionary.
+$ training/wordlist2dawg /tmp/dictionary.txt /tmp/dawg_en-us.bin /tmp/eng.char.unicharset
+Loading unicharset from '/tmp/eng.char.unicharset'
+Reading word list from '/tmp/dictionary.txt'
+Reducing Trie to SquishedDawg
+Writing squished DAWG to '/tmp/dawg_en-us.bin'  (1.32MBytes)
+
+
+
 

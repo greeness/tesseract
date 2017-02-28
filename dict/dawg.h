@@ -38,10 +38,10 @@
 
 #ifndef __GNUC__
 #ifdef _WIN32
-#define NO_EDGE                (inT64) 0xffffffffi64
+#define NO_EDGE                (inT32) 0xffffffffi64
 #endif  /*_WIN32*/
 #else
-#define NO_EDGE                (inT64) 0xffffffffll
+#define NO_EDGE                (inT32) 0xffffffffu
 #endif /*__GNUC__*/
 
 /*----------------------------------------------------------------------
