@@ -38,10 +38,10 @@
 
 #ifndef __GNUC__
 #ifdef _WIN32
-#define NO_EDGE                (inT64) 0xffffffffffffffffi64
+#define NO_EDGE                (inT64) 0xffffffffi64
 #endif  /*_WIN32*/
 #else
-#define NO_EDGE                (inT64) 0xffffffffffffffffll
+#define NO_EDGE                (inT64) 0xffffffffll
 #endif /*__GNUC__*/
 
 /*----------------------------------------------------------------------
@@ -49,10 +49,10 @@
 ----------------------------------------------------------------------*/
 class UNICHARSET;
 
-typedef uinT64 EDGE_RECORD;
+typedef uinT32 EDGE_RECORD;
 typedef EDGE_RECORD *EDGE_ARRAY;
-typedef inT64 EDGE_REF;
-typedef inT64 NODE_REF;
+typedef inT32 EDGE_REF;
+typedef inT32 NODE_REF;
 typedef EDGE_REF *NODE_MAP;
 
 namespace tesseract {
@@ -83,10 +83,10 @@ enum DawgType {
 
 #define FORWARD_EDGE           (inT32) 0
 #define BACKWARD_EDGE          (inT32) 1
-#define MAX_NODE_EDGES_DISPLAY (inT64) 100
-#define MARKER_FLAG            (inT64) 1
-#define DIRECTION_FLAG         (inT64) 2
-#define WERD_END_FLAG          (inT64) 4
+#define MAX_NODE_EDGES_DISPLAY (inT32) 100
+#define MARKER_FLAG            (inT32) 1
+#define DIRECTION_FLAG         (inT32) 2
+#define WERD_END_FLAG          (inT32) 4
 #define LETTER_START_BIT       0
 #define NUM_FLAG_BITS          3
 #define REFFORMAT "%lld"
@@ -304,9 +304,9 @@ class Dawg {
   int unicharset_size_;
   int flag_start_bit_;
   int next_node_start_bit_;
-  uinT64 next_node_mask_;
-  uinT64 flags_mask_;
-  uinT64 letter_mask_;
+  uinT32 next_node_mask_;
+  uinT32 flags_mask_;
+  uinT32 letter_mask_;
   // Level of debug statements to print to stdout.
   int debug_level_;
 };

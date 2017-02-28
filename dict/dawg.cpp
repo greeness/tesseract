@@ -185,8 +185,8 @@ void Dawg::init(DawgType type, const STRING &lang,
   // the actual number of unichars is unicharset_size_ + 1.
   flag_start_bit_ = ceil(log(unicharset_size_ + 1.0) / log(2.0));
   next_node_start_bit_ = flag_start_bit_ + NUM_FLAG_BITS;
-  letter_mask_ = ~(~0ull << flag_start_bit_);
-  next_node_mask_ = ~0ull << (flag_start_bit_ + NUM_FLAG_BITS);
+  letter_mask_ = ~(~0u << flag_start_bit_);
+  next_node_mask_ = ~0u << (flag_start_bit_ + NUM_FLAG_BITS);
   flags_mask_ = ~(letter_mask_ | next_node_mask_);
 
   debug_level_ = debug_level;
