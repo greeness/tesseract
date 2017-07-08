@@ -10,6 +10,7 @@ How to compile in Ubuntu?
 sudo apt-get install libicu-dev
 sudo apt-get install libpango1.0-dev
 sudo apt-get install libcairo2-dev
+sudo apt-get install autoconf-archive
 
 * Do install "Leptonica" from the source. (get it here: http://www.leptonica.org/download.html)
   untar and then "./configure && make install".
